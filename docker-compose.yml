@@ -1,0 +1,33 @@
+services:
+  db:
+    container_name: postgres_container
+    image: postgres:16.2
+    profiles: [db]
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: nutrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+
+  pgadmin:
+    container_name: pgAdmin_container
+    image: dpage/pgadmin4
+    profiles: [pgAdmin]
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    volumes:
+      - pgAdmin:/var/lib/pgadmin
+      - ./pgAdmin:/var/lib/pgadmin/storage
+
+volumes:
+  db:
+  pgAdmin:
