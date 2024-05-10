@@ -24,3 +24,7 @@ The Device should now display the React Native App
 
 ## ToDo:
 - Db setup for docker
+- develop REST-API (Want to make an actually good API? Read the [Zalando RESTful api and events guidelines](https://opensource.zalando.com/restful-api-guidelines/))
+- (Use Insomnia instead of Postman, all my homies hate Postman)
+  
+Let's just focus on making the API work, frontend will follow later
