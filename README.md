@@ -3,7 +3,7 @@
 
 ## Getting startet:
 ### React Native:
-- Follow this [instructions](https://reactnative.dev/docs/environment-setup?guide=native) till **Android Development Environment**
+- Follow this [instructions](https://reactnative.dev/docs/environment-setup?guide=native) for **Installing dependencies & Android Development Environment** 
 
 #### Android Studio:
 - start android studio and open the ./frontend/android folder
