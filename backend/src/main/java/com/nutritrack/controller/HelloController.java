@@ -8,6 +8,6 @@ public class HelloController {
 
     @GetMapping("/")
     public String sayHello() {
-        return "NutriTrack backend is testing!";
+        return "NutriTrack backend is running!";
     }
 }
