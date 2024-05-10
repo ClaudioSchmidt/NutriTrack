@@ -4,6 +4,12 @@
             "type": "java",
             "name": "BackendApplication",
             "request": "launch",
+            "mainClass": "com.nutritrack.BackendApplication"
+        },
+        {
+            "type": "java",
+            "name": "BackendApplication",
+            "request": "launch",
             "mainClass": "com.nutritrack.BackendApplication",
             "projectName": "nutritracker"
         },

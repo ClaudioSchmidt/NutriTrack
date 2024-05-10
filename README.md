@@ -14,3 +14,12 @@ run mvnw spring-boot:start in the backend directory
 ## ToDo:
 
 Db setup for docker
+
+spring.application.name=backend
+spring.devtools.restart.enabled=true
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>true</scope>
+		</dependency>
