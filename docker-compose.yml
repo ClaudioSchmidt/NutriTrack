@@ -5,6 +5,7 @@ services:
       - "8080:8080"
     volumes:
       - ./backend:/api-app
+      
   db:
     container_name: postgres_container
     image: postgres:16.2

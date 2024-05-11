@@ -31,6 +31,9 @@ Let's just focus on making the API work, frontend will follow later
 
 # Global INFO
 
+## Database model
+[model](https://drawsql.app/teams/swt-2/diagrams/nutrack)
+
 ## Start all dockers
 docker compose --profile "*" up -d
 
