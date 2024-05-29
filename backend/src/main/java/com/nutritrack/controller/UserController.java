@@ -26,6 +26,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping
+    public User createUser(@RequestBody User newUser) {
+        return userService.createUser(newUser);
+    }
+
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
@@ -34,11 +39,6 @@ public class UserController {
     @GetMapping
     public List<User> getAllUser() {
         return userService.getAllUsers();
-    }
-
-    @PostMapping
-    public User createMeal(@RequestBody User newUser) {
-        return userService.saveUser(newUser);
     }
 
     @PutMapping("/{id}")
