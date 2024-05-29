@@ -1,5 +1,6 @@
 services:
   nutritrack-backend:
+    container_name: backend
     build: ./backend
     ports:
       - "8080:8080"
@@ -7,14 +8,13 @@ services:
       - ./backend:/api-app
       
   db:
-    container_name: postgres_container
-    image: postgres:16.2
-    profiles: [db]
+    image: postgres:16
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: nutrack
+      POSTGRES_DB: nutritack
     ports:
       - "5432:5432"
     volumes:
@@ -22,9 +22,8 @@ services:
       - ./db:/docker-entrypoint-initdb.d
 
   pgadmin:
-    container_name: pgAdmin_container
     image: dpage/pgadmin4
-    profiles: [pgAdmin]
+    container_name: pgAdmin
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com

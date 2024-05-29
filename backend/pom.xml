@@ -2,58 +2,100 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
+	<!-- Parent POM for Spring Boot projects -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.0-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>com.nutritrack</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
 	<description>Demo project for Spring Boot</description>
+	
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+	
 	<dependencies>
+		<!-- Spring Boot Starter for building web, including RESTful applications using Spring MVC. Uses Tomcat as the default embedded container -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- Spring Boot Starter for using Spring Data JPA with Hibernate -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+		<!-- Jakarta Persistence API for using JPA annotations -->
 		<dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
 
+		<!-- PostgreSQL JDBC Driver for database connectivity -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.20</version>
+		</dependency>
+
+		<!-- Lombok to reduce boilerplate code for model/data objects -->
+		<dependency>
+  		    <groupId>org.projectlombok</groupId>
+  		    <artifactId>lombok</artifactId>
+  		    <version>1.18.20</version>
+ 	        <scope>provided</scope>
+		</dependency>
+
+		<!-- Hibernate Core for ORM functionality -->
+		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.32.Final</version>
+        </dependency>
+
+		<!-- Springdoc OpenAPI UI for API documentation -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version>
+        </dependency>	
+
+		<!-- Spring Boot DevTools for development-time features -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Spring Boot Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest, and Mockito -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>true</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Spring Boot Maven Plugin for packaging and running Spring Boot applications -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
+	
 	<repositories>
+		<!-- Spring Milestones repository -->
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -62,6 +104,8 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		
+		<!-- Spring Snapshots repository -->
 		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
@@ -71,7 +115,9 @@
 			</releases>
 		</repository>
 	</repositories>
+	
 	<pluginRepositories>
+		<!-- Spring Milestones plugin repository -->
 		<pluginRepository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
@@ -80,6 +126,8 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
+		
+		<!-- Spring Snapshots plugin repository -->
 		<pluginRepository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
