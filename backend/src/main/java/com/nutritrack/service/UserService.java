@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import com.nutritrack.model.User;
 import com.nutritrack.repository.UserRepository;
 import com.nutritrack.exception.ResourceNotFoundException;
+import jakarta.persistence.criteria.Predicate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +20,11 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
 
     public User saveUser(User user) {
@@ -45,5 +52,20 @@ public class UserService {
         } else {
             throw new ResourceNotFoundException("User not found with id " + id);
         }
+    }
+
+    public List<User> searchUsers(String keyword) {
+        return userRepository.findAll((root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (keyword != null) {
+                predicates.add(cb.like(root.get("username"), "%" + keyword + "%"));
+                predicates.add(cb.like(root.get("firstName"), "%" + keyword + "%"));
+                predicates.add(cb.like(root.get("lastName"), "%" + keyword + "%"));
+                predicates.add(cb.like(root.get("email"), "%" + keyword + "%"));
+            }
+
+            return cb.or(predicates.toArray(new Predicate[0]));
+        });
     }
 }

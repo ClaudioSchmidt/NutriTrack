@@ -4,8 +4,12 @@ import org.springframework.stereotype.Service;
 
 import com.nutritrack.exception.ResourceNotFoundException;
 import com.nutritrack.model.Meal;
+import com.nutritrack.model.User;
 import com.nutritrack.repository.MealRepository;
 
+import jakarta.persistence.criteria.Predicate;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +22,15 @@ public class MealService {
 
     public List<Meal> getAllMeals() {
         return mealRepository.findAll();
+    }
+
+    public Meal getMealById(Long id) {
+        return mealRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Meal not found with id " + id));
+    }
+
+    public List<Meal> getMealsByUserId(Long userId) {
+        return mealRepository.findByUserId(userId);
     }
 
     public Meal saveMeal(Meal meal) {
@@ -47,5 +60,17 @@ public class MealService {
         } else {
             throw new ResourceNotFoundException("Meal not found with id " + id);
         }
+    }
+
+    public List<Meal> searchMeals(String keyword) {
+        return mealRepository.findAll((root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (keyword != null) {
+                predicates.add(cb.like(root.get("title"), "%" + keyword + "%"));
+            }
+
+            return cb.or(predicates.toArray(new Predicate[0]));
+        });
     }
 }
