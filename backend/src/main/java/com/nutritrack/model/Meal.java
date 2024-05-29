@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Data
@@ -48,9 +48,9 @@ public class Meal {
     @Column(name = "vegan", nullable = false)
     private Boolean vegan;
 
-    @Lob
-    @Column(name = "picture")
-    private byte[] picture;
+    // @Lob
+    // @Column(name = "picture")
+    // private byte[] picture;
 
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.DATE)

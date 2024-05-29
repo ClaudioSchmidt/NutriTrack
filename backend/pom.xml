@@ -44,14 +44,14 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.20</version>
+			<version>42.7.3</version>
 		</dependency>
 
 		<!-- Lombok to reduce boilerplate code for model/data objects -->
 		<dependency>
   		    <groupId>org.projectlombok</groupId>
   		    <artifactId>lombok</artifactId>
-  		    <version>1.18.20</version>
+  		    <version>1.18.32</version>
  	        <scope>provided</scope>
 		</dependency>
 
@@ -59,7 +59,7 @@
 		<dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.4.32.Final</version>
+            <version>6.5.2.Final</version>
         </dependency>
 
 		<!-- Springdoc OpenAPI UI for API documentation -->
@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
+			<scope>true</scope>
 		</dependency>
 
 		<!-- Spring Boot Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest, and Mockito -->

@@ -1,24 +1,32 @@
 package com.nutritrack.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.nutritrack.model.Meal;
-import com.nutritrack.respository.MealRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.nutritrack.service.MealService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/meals")
 public class MealController {
+    private final MealService mealService;
 
-    @Autowired
-    private MealRepository mealRepository;
+    public MealController(MealService mealService) {
+        this.mealService = mealService;
+    }
 
-    // Create a new Meal
+    @GetMapping
+    public List<Meal> getAllMeals() {
+        return mealService.getAllMeals();
+    }
+
     @PostMapping
-    public Meal createMeal(@RequestBody Meal meal) {
-        return mealRepository.save(meal);
+    public Meal createMeal(@RequestBody Meal newMeal) {
+        return mealService.saveMeal(newMeal);
     }
 }
