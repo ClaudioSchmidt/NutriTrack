@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-    color: '#ffffff', // Ensure the text color contrasts with the background
+    color: 'black', // Ensure the text color contrasts with the background
     fontSize: 16, // Set a smaller font size
     textAlign: 'center', // Center align the text
   },

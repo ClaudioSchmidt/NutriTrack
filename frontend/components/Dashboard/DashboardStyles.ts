@@ -16,22 +16,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
-  },
-  box1: {
-    backgroundColor: 'dodgerblue',
-    flex: 1,
-    marginRight: 10,
-  },
-  box2: {
-    backgroundColor: 'gold',
-    flex: 1,
-    marginHorizontal: 10,
-  },
-  box3: {
-    backgroundColor: 'tomato',
-    flex: 1,
-    marginLeft: 10,
-  },
+  }
 });
 
 export default styles;

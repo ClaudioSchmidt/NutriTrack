@@ -1,46 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import Dashboard from './components/Dashboard/Dashboard';
-import {
-  SafeAreaView,
-  //ScrollView,
-  //StatusBar,
-  //StyleSheet,
-  //Text,
-  //useColorScheme,
-  //View,
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AddMealScreen from './components/AddMealFunction/AddMealScreen';
 
-import //Colors,
-//DebugInstructions,
-//Header,
-//LearnMoreLinks,
-//ReloadInstructions,
-'react-native/Libraries/NewAppScreen';
+const Stack = createStackNavigator();
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function App(): React.JSX.Element {
-  //const isDarkMode = useColorScheme() === 'dark';
-
-  /*const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };*/
-
+const App = () => {
   return (
-    <SafeAreaView>
-      <Dashboard />
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack.Navigator>
+          <Stack.Screen name="AddMeal" component={AddMealScreen} options={{ title: 'Add Meal' }} />
+        </Stack.Navigator>
+      </SafeAreaView>
+    </NavigationContainer>
   );
-}
+};
 
 export default App;
