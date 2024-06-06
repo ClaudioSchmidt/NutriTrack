@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.nutritrack.exception.ResourceNotFoundException;
 import com.nutritrack.model.Meal;
-import com.nutritrack.model.User;
 import com.nutritrack.repository.MealRepository;
 
 import jakarta.persistence.criteria.Predicate;
