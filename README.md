@@ -58,3 +58,5 @@ docker compose --profile pgAdmin up -d
 
 ## Stop
 docker compose --profile pgAdmin down
+
+This is a new feature
