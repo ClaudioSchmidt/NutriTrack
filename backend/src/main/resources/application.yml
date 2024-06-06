@@ -1,0 +1,19 @@
+spring:
+    # Statt localhost muss hier der Name des Containers stehen, da in einem Docker-Netzwerk die Container über ihren Namen angesprochen werden
+    datasource:
+        url: jdbc:postgresql://postgres:5432/nutritack
+        username: root
+        password: root
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true
+    application:
+        name: backend
+    devtools:
+        restart:
+            enabled: true
