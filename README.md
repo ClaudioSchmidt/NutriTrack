@@ -40,6 +40,9 @@ docker compose --profile "*" up -d
 ## Stop all dockers
 docker compose --profile "*" down
 
+## Swagger UI link
+http://localhost:8080/swagger-ui/index.html#/
+
 # DB INFO
 
 ## Start
