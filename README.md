@@ -49,8 +49,8 @@ Before setting up the project, ensure you have the following software installed 
 Clone the project repository from GitHub:
 
 ```sh
-    git clone https://github.com/clausioporosis/nutritrack.git
-    cd nutritrack
+git clone https://github.com/clausioporosis/nutritrack.git
+cd nutritrack
 ```
 
 ### Docker Setup
@@ -60,7 +60,7 @@ The project includes a docker-compose.yml file to set up the PostgreSQL database
 #### Running the Application 
 
 ```sh
-    docker-compose up -d
+docker-compose up -d
 ```
 
 The application will be accessible at http://localhost:8080.
@@ -68,7 +68,7 @@ The application will be accessible at http://localhost:8080.
 #### Stopping the Services
 
 ```sh
-    docker-compose down
+docker-compose down
 ```
 
 ### Additional Notes
