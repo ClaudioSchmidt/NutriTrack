@@ -37,7 +37,7 @@ NutriTrack leverages the following key technologies:
 
 ## Points System
 
-The points system is designed to motivate users to make healthier dietary choices by awarding points for tracking foods. These points are awarded on each tracking entry the user made based on the nutritional information and CO2 emissions of the foods.
+The points system is designed to motivate users to make healthier dietary choices by awarding points for tracking foods. These points are awarded on each tracking entry the user made based on the nutritional information and CO2 emissions.
 
 ### Functionality
 
