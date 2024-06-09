@@ -15,7 +15,7 @@
 ---
 
 ## Project Overview
-**NutriTrack** is an upcoming app designed to help users track their food consumption, nutritional information and environmental impact.
+**NutriTrack** is an innovative app designed to help users track their food consumption, nutritional information, and environmental impact. By providing valuable insights into dietary decisions and statistics, NutriTrack not only promotes healthier habits but also rewards users for their progress.
 
 ## Technologies Used
 
