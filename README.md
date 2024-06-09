@@ -1,11 +1,13 @@
 # NutriTrack
+#### The Sustainable Nutrition Tracking App
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Technologies Used](#technologies-used)
-3. [Environment Setup](#environment-setup)
-4. [Security](#security)
-5. [API Documentation](#api-documentation)
+3. [Points System](#points-system)
+4. [Environment Setup](#environment-setup)
+5. [Security](#security)
+6. [API Documentation](#api-documentation)
     - [Authentication API](#authentication-api)
     - [User API](#user-api)
     - [Food API](#food-api)
@@ -33,6 +35,27 @@ NutriTrack leverages the following key technologies:
 - **JWT (JSON Web Tokens):** Secure authentication mechanism.
 - **Maven:** Build automation and dependency management.
 
+## Points System
+
+The points system is designed to motivate users to make healthier dietary choices by awarding points for tracking foods. These points are awarded on each tracking entry the user made based on the nutritional information and CO2 emissions of the foods.
+
+### Functionality
+
+- Points Based on Diet Type:
+  - Vegan meals: 15 points
+  - Vegetarian meals: 8 points
+  - Other meals: 2 points
+
+- Points Based on CO2 Emissions:
+  - CO2 emissions < 0.1 kg: 10 points
+  - CO2 emissions < 0.2 kg: 5 points
+  - CO2 emissions < 0.3 kg: 2 points
+
+- Points Based on Caloric Content:
+  - Calories < 100: 5 points
+  - Calories < 200: 3 points
+  - Calories < 300: 1 point
+
 ## Environment Setup
 
 ### Prerequisites
@@ -40,7 +63,6 @@ NutriTrack leverages the following key technologies:
 Before setting up the project, ensure you have the following software installed on your machine:
 
 - [Java Development Kit (JDK) 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-- [Apache Maven](https://maven.apache.org/install.html)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -49,7 +71,7 @@ Before setting up the project, ensure you have the following software installed 
 Clone the project repository from GitHub:
 
 ```sh
-git clone https://github.com/clausioporosis/nutritrack.git
+git clone https://github.com/Clausioporosis/nutritrack.git
 cd nutritrack
 ```
 
@@ -75,7 +97,7 @@ docker-compose down
 
 - **Database Management:** pgAdmin is included in the docker-compose.yml file for easier database management. Access it at http://localhost:5050 with the default credentials provided (email: admin@admin.com password: admin).
 - **API Documentation:** The project uses SpringDoc and Swagger UI for API documentation. Once the application is running, you can access the API documentation at http://localhost:8080/swagger-ui.html.
-- **Security:** The project uses JWT for authentication and Spring Security for securing endpoints. Ensure to configure your JWT_SECRET in the application.yml.
+- **Security:** The project uses JWT for authentication and Spring Security for securing endpoints. Ensure to configure your jwt.secret: in the application.yml.
 
 ## Security
 
@@ -84,6 +106,10 @@ docker-compose down
 ### Authentication
 
 The application uses JSON Web Tokens (JWT) for authentication. Upon successful login, a token is issued to the user, which must be included in the header of subsequent requests.
+
+### Extracting User ID from JWT Token 
+
+For user-related operations, the user ID is securely extracted from the JWT token provided in the request header. This process ensures that each request is authenticated, and the user ID is reliably obtained from the token payload. The extracted user ID is then used to perform operations specific to the authenticated user across various APIs, including the Food API, Tracking API, and User Stats API. This mechanism guarantees that all data and actions are accurately associated with the correct user.
 
 ## API Documentation
 
@@ -190,7 +216,7 @@ The application uses JSON Web Tokens (JWT) for authentication. Upon successful l
 
 **Endpoint: `/api/foods/user`**
 - **Method:** `GET`
-- **Description:** Get all food items of the current user.
+- **Description:** Get all food items.
 - **[Response Body:](#food-response-body)**
 
 **Endpoint: `/api/foods/{id}`**
@@ -263,12 +289,12 @@ The application uses JSON Web Tokens (JWT) for authentication. Upon successful l
 
 **Endpoint: `/api/foods/user/simple`**
 - **Method:** `GET`
-- **Description:** Get all simplified food items of the current user.
+- **Description:** Get all simplified food items.
 - **[Response Body:](#simple-food-response-body)**
 
 **Endpoint: `/api/foods/user/simple/search?title={title}`**
 - **Method:** `GET`
-- **Description:** Search for simplified food items of the current user.
+- **Description:** Search for simplified food items by title.
 - **[Response Body:](#simple-food-response-body)**
 
 #### **Simple Food Response Body**
@@ -293,7 +319,7 @@ The application uses JSON Web Tokens (JWT) for authentication. Upon successful l
 
 **Endpoint: `/api/tracking`**
 - **Method:** `POST`
-- **Description:** Track a food item for the current user. If `portionId = null`, the tracking quantity will be directly used as the weight, meaning if `portionId = null` and `quantity = 260`, the weight of the tracked item would be 260 g or ml, depending on the type.
+- **Description:** Track a food item and it's portion size. If `portionId = null`, the tracking quantity will be directly used as the weight, meaning if `portionId = null` and `quantity = 260`, the weight of the tracked item would be 260 g or ml, depending on the type.
 - **Request Body:**
 ```json
     {
@@ -404,7 +430,7 @@ The application uses JSON Web Tokens (JWT) for authentication. Upon successful l
 
 **Endpoint: `/api/user/total`**
 - **Method:** `GET`
-- **Description:** Get total stat summary of the current user.
+- **Description:** Get total stat summary.
 - **[Response Body:](#stats-response-body)**
 
 **Endpoint: `/api/user/date?date={YYYY-MM-DD}`**
