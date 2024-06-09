@@ -1,9 +1,8 @@
 spring:
-    # Statt localhost muss hier der Name des Containers stehen, da in einem Docker-Netzwerk die Container über ihren Namen angesprochen werden
     datasource:
-        url: jdbc:postgresql://postgres:5432/nutritack
-        username: root
-        password: root
+        url: jdbc:postgresql://postgres:5432/nutritrack
+        username: admin
+        password: admin
         driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
@@ -17,3 +16,13 @@ spring:
     devtools:
         restart:
             enabled: true
+    profiles:
+        active: dev # dev to bypass security for development
+
+jwt:
+    secret: tKsRC4OSCF4neRuskYJYw0FALwRkdiG1u6F2oj24P60=
+    expiration: 3600000
+    auth:
+        converter:
+            principle-attribute: sub
+            resource-id: nutritrack
