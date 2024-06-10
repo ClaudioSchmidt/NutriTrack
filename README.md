@@ -7,7 +7,8 @@
 3. [Points System](#points-system)
 4. [Environment Setup](#environment-setup)
 5. [Security](#security)
-6. [API Documentation](#api-documentation)
+6. [Database Schema](#database-schema)
+7. [API Documentation](#api-documentation)
     - [Authentication API](#authentication-api)
     - [User API](#user-api)
     - [Food API](#food-api)
@@ -110,6 +111,15 @@ The application uses JSON Web Tokens (JWT) for authentication. Upon successful l
 ### Extracting User ID from JWT Token 
 
 For user-related operations, the user ID is securely extracted from the JWT token provided in the request header. This process ensures that each request is authenticated, and the user ID is reliably obtained from the token payload. The extracted user ID is then used to perform operations specific to the authenticated user across various APIs, including the Food API, Tracking API, and User Stats API. This mechanism guarantees that all data and actions are accurately associated with the correct user.
+
+## Database Schema
+
+Below is the database schema for NutriTrack, providing a visual overview of how the data is structured and related:
+
+<picture>
+  <source srcset="assets/NutriTrack-drawSQL-image-export-10.06.24-dark-mode.png" media="(prefers-color-scheme: dark)">
+  <img src="assets/NutriTrack-drawSQL-image-export-10.06.24.png" alt="NutriTrack PostgreSQL Schema using DrawSQL">
+</picture>
 
 ## API Documentation
 
