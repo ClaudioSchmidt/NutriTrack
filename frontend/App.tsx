@@ -1,21 +1,19 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import AddMealScreen from './components/AddMealFunction/AddMealScreen';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import AddMeal from './components/AddMeal/AddMeal';
 
-const Stack = createStackNavigator();
-
-const App = () => {
+const App: React.FC = () => {
   return (
-    <NavigationContainer>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Stack.Navigator>
-          <Stack.Screen name="AddMeal" component={AddMealScreen} options={{ title: 'Add Meal' }} />
-        </Stack.Navigator>
-      </SafeAreaView>
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <AddMeal />
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;

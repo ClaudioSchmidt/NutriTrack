@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
-  }
+  },
 });
 
 export default styles;

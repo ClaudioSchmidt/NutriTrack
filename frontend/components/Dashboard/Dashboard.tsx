@@ -7,7 +7,7 @@ import styles from './DashboardStyles';
 
 const Dashboard: React.FC = () => {
   const dailyCalorieIntake = 2300;
-  const caloriesEaten = 1300;
+  const caloriesEaten = 1800;
   const progress = (caloriesEaten / dailyCalorieIntake) * 100;
 
   return (
@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
         calories={caloriesEaten}
       />
       <MealHistory />
-      <AddMealButton />
+      <AddMealButton onPress={() => console.log('Add meal button pressed')} />
     </View>
   );
 };
