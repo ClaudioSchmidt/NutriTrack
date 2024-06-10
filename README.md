@@ -355,7 +355,15 @@ Below is the database schema for NutriTrack, providing a visual overview of how 
             "quantity": 0.0
         },
         "quantity": 0.0,
-        "timestamp": "current-date-string"
+        "timestamp": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
     }
 ```
 
@@ -390,7 +398,15 @@ Below is the database schema for NutriTrack, providing a visual overview of how 
             "quantity": 0.0
         },
         "quantity": 0.0,
-        "timestamp": "date-string"
+        "timestamp": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
     }
 ```
 
@@ -416,7 +432,15 @@ Below is the database schema for NutriTrack, providing a visual overview of how 
                     "quantity": 0.0
                 },
                 "quantity": 0.0,
-                "timestamp": [YYYY, MM, DD, HH, MM, SS, NS]
+                "timestamp": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             }
         ],
         "summary": {
