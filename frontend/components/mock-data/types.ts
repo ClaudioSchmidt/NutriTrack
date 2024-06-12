@@ -1,4 +1,4 @@
-// frontend/types.ts
+// frontend/components/mock-data/types.ts
 export interface Nutrition {
   calories: number;
   protein: number;
@@ -8,20 +8,14 @@ export interface Nutrition {
 
 export interface Sustainability {
   co2PerKg: number;
-  dietType: 'OMNIVORE' | 'VEGETARIAN' | 'VEGAN';
+  dietType: string;
 }
 
-export interface Portion {
-  label: string;
-  quantity: number;
-}
-
-export interface Product {
-  title: string;
+export interface Ingredient {
+  id: string;
+  name: string;
   brand: string;
   category: string;
   nutrition: Nutrition;
   sustainability: Sustainability;
-  portions: Portion[];
-  liquid: boolean;
 }
