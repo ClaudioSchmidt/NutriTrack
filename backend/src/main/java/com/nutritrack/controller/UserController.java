@@ -1,59 +1,63 @@
 package com.nutritrack.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import com.nutritrack.model.User;
+import com.nutritrack.dto.UserResponse;
 import com.nutritrack.service.UserService;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import com.nutritrack.util.SecurityUtil;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "User Management", description = "APIs for managing users")
 public class UserController {
-    private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private SecurityUtil securityUtil;
+
+    @Operation(summary = "Get current user details")
+    @GetMapping("/me")
+    public UserResponse getCurrentUser() {
+        Long userId = securityUtil.getUserIdFromToken();
+        return userService.getUserById(userId);
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User newUser) {
-        return userService.createUser(newUser);
-    }
-
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
-    }
-
+    @Operation(summary = "Get all users")
     @GetMapping
-    public List<User> getAllUser() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    @Operation(summary = "Get user by ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+        UserResponse user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete a user")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Operation(summary = "Search users by keyword")
     @GetMapping("/search")
-    public List<User> searchUsers(@RequestParam String keyword) {
-        return userService.searchUsers(keyword);
+    public ResponseEntity<List<UserResponse>> searchUsers(@RequestParam String keyword) {
+        List<UserResponse> users = userService.searchUsers(keyword);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

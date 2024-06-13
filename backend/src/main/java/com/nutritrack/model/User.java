@@ -1,43 +1,28 @@
 package com.nutritrack.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-
 import jakarta.persistence.*;
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "users")
+@Schema(description = "User entity representing a user of the application")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
-    @Column(name = "username", nullable = false, length = 50)
     private String username;
-
-    @Column(name = "email", nullable = false, length = 50)
     private String email;
-
-    @Column(name = "first_name", nullable = false, length = 50)
+    private String password;
     private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    @Column(name = "password", nullable = false, length = 100)
-    private String password;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Food> foods;
 
-    @Column(name = "height")
-    private Long height;
-
-    @Column(name = "weight")
-    private Double weight;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Tracking> trackings;
 }
