@@ -242,15 +242,14 @@ const AddIntake: React.FC = () => {
           <Picker.Item label="Dinner" value="dinner" />
         </Picker>
 
-        <Text style={styles.label}>Dietary Preference</Text>
+        <Text style={styles.label}>Diet Type</Text>
         <Picker
-          selectedValue={dietaryPreference}
-          onValueChange={itemValue => setDietaryPreference(String(itemValue))}
+          selectedValue={dietType}
+          onValueChange={itemValue => setDietType(String(itemValue))}
           style={styles.picker}>
-          <Picker.Item label="Normal" value="normal" />
-          <Picker.Item label="Vegetarian" value="vegetarian" />
-          <Picker.Item label="Vegan" value="vegan" />
-          <Picker.Item label="With/Without Meat" value="with_without_meat" />
+          <Picker.Item label="Vegan" value="VEGAN" />
+          <Picker.Item label="Vegetarian" value="VEGETARIAN" />
+          <Picker.Item label="Omnivore" value="OMNIVORE" />
         </Picker>
 
         <View style={styles.nutritionalTable}>
@@ -344,16 +343,6 @@ const AddIntake: React.FC = () => {
             />
           </View>
         </View>
-
-        <Text style={styles.label}>Diet Type</Text>
-        <Picker
-          selectedValue={dietType}
-          onValueChange={itemValue => setDietType(String(itemValue))}
-          style={styles.picker}>
-          <Picker.Item label="Vegan" value="VEGAN" />
-          <Picker.Item label="Vegetarian" value="VEGETARIAN" />
-          <Picker.Item label="Omnivore" value="OMNIVORE" />
-        </Picker>
 
         <TouchableOpacity
           style={[styles.addButton, {opacity: isFormValid() ? 1 : 0.5}]}
