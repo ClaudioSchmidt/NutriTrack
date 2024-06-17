@@ -26,3 +26,6 @@ jwt:
         converter:
             principle-attribute: sub
             resource-id: nutritrack
+
+app:
+  origins: "*" # for development
