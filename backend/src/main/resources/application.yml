@@ -16,8 +16,8 @@ spring:
     devtools:
         restart:
             enabled: true
-    profiles:
-        active: dev # dev to bypass security for development
+    #profiles:
+        #active: dev # dev to bypass security for development
 
 jwt:
     secret: tKsRC4OSCF4neRuskYJYw0FALwRkdiG1u6F2oj24P60=
