@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,32 +9,47 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import {mockIngredients} from '../mock-data/mockIngredients';
-import {Ingredient} from '../mock-data/types';
-import {RadioButton} from 'react-native-paper';
+import { mockIngredients } from '../mock-data/mockIngredients';
+import { Ingredient } from '../mock-data/types';
+import { RadioButton } from 'react-native-paper';
 import styles from './AddMealStyles';
+import UserService from '../../android/app/src/services/UserService';
+import AddMealService from '../../android/app/src/services/AddMealService'
 
 interface SelectedIngredient {
   ingredient: Ingredient;
   quantity: number;
 }
 
+const userService = new UserService();
+const addMealService = new AddMealService();
+
 const AddMeal: React.FC = () => {
-  const [selectedIngredients, setSelectedIngredients] = useState<
-    SelectedIngredient[]
-  >([]);
-  const [currentQuantities, setCurrentQuantities] = useState<{
-    [key: string]: string;
-  }>({});
+  const [selectedIngredients, setSelectedIngredients] = useState<SelectedIngredient[]>([]);
+  const [currentQuantities, setCurrentQuantities] = useState<{ [key: string]: string }>({});
   const [mealName, setMealName] = useState<string>('');
   const [mealType, setMealType] = useState<string>('omnivore');
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [selectedForModal, setSelectedForModal] = useState<{
-    [key: string]: boolean;
-  }>({});
+  const [selectedForModal, setSelectedForModal] = useState<{ [key: string]: boolean }>({});
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
-  const [selectedIngredientDetails, setSelectedIngredientDetails] =
-    useState<Ingredient | null>(null);
+  const [selectedIngredientDetails, setSelectedIngredientDetails] = useState<Ingredient | null>(null);
+  const [testResponse, setTestResponse] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Call test function on component mount
+    test();
+  }, []); // Empty dependency array ensures it runs only once
+
+  const test = async () => {
+    try {
+      const response = await userService.fetchTrackings();
+      setTestResponse(response);
+      setError(null); // Reset error if the request was successful
+    } catch (error:any) {
+      setError(error.message);
+    }
+  };
 
   const handleQuantityChange = (id: string, value: string) => {
     const regex = /^\d*\.?\d{0,1}$/;
@@ -116,6 +131,10 @@ const AddMeal: React.FC = () => {
 
   const closeIngredientDetailsModal = () => {
     setSelectedIngredientDetails(null);
+  };
+
+  const handleButtonClick = () => {
+    test(); // Call the test function on button click
   };
 
   return (
