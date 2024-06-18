@@ -9,23 +9,17 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import { mockIngredients } from '../mock-data/mockIngredients';
-import { Ingredient } from '../mock-data/types';
 import { RadioButton } from 'react-native-paper';
 import styles from './AddMealStyles';
 import UserService from '../../android/app/src/services/UserService';
-import AddMealService from '../../android/app/src/services/AddMealService'
-
-interface SelectedIngredient {
-  ingredient: Ingredient;
-  quantity: number;
-}
+import MealService from '../../android/app/src/services/MealService';
+import { Ingredient } from '../mock-data/types'; // Assuming this type is defined somewhere in your project
 
 const userService = new UserService();
-const addMealService = new AddMealService();
+const mealService = new MealService();
 
 const AddMeal: React.FC = () => {
-  const [selectedIngredients, setSelectedIngredients] = useState<SelectedIngredient[]>([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<{ ingredient: Ingredient; quantity: number }[]>([]);
   const [currentQuantities, setCurrentQuantities] = useState<{ [key: string]: string }>({});
   const [mealName, setMealName] = useState<string>('');
   const [mealType, setMealType] = useState<string>('omnivore');
@@ -33,23 +27,23 @@ const AddMeal: React.FC = () => {
   const [selectedForModal, setSelectedForModal] = useState<{ [key: string]: boolean }>({});
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [selectedIngredientDetails, setSelectedIngredientDetails] = useState<Ingredient | null>(null);
-  const [testResponse, setTestResponse] = useState(null);
   const [error, setError] = useState<string | null>(null);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   useEffect(() => {
-    // Call test function on component mount
-    test();
-  }, []); // Empty dependency array ensures it runs only once
+    const authenticateAndFetchData = async () => {
+      try {
+        const token = await userService.authenticateUser('username', 'password');
+        mealService.setAuthToken(token);
+        const response = await mealService.getMealsByUser();
+        setIngredients(response);
+      } catch (error: any) {
+        setError(error.message);
+      }
+    };
 
-  const test = async () => {
-    try {
-      const response = await userService.fetchTrackings();
-      setTestResponse(response);
-      setError(null); // Reset error if the request was successful
-    } catch (error:any) {
-      setError(error.message);
-    }
-  };
+    authenticateAndFetchData();
+  }, []);
 
   const handleQuantityChange = (id: string, value: string) => {
     const regex = /^\d*\.?\d{0,1}$/;
@@ -81,24 +75,23 @@ const AddMeal: React.FC = () => {
     const newIngredients = Object.keys(selectedForModal)
       .filter(id => selectedForModal[id])
       .map(id => {
-        const ingredient = mockIngredients.find(item => item.id === id);
+        const ingredient = ingredients.find(item => item.id === id);
         const quantity = parseFloat(currentQuantities[id] || '1');
-        return {ingredient, quantity};
+        return { ingredient, quantity };
       })
       .filter(item => item.ingredient);
 
     const updatedSelectedIngredients = [...selectedIngredients];
 
-    newIngredients.forEach(({ingredient, quantity}) => {
+    newIngredients.forEach(({ ingredient, quantity }) => {
       const existingIngredientIndex = updatedSelectedIngredients.findIndex(
         selected => selected.ingredient.id === ingredient.id,
       );
 
       if (existingIngredientIndex !== -1) {
-        updatedSelectedIngredients[existingIngredientIndex].quantity +=
-          quantity;
+        updatedSelectedIngredients[existingIngredientIndex].quantity += quantity;
       } else {
-        updatedSelectedIngredients.push({ingredient, quantity});
+        updatedSelectedIngredients.push({ ingredient, quantity });
       }
     });
 
@@ -133,8 +126,22 @@ const AddMeal: React.FC = () => {
     setSelectedIngredientDetails(null);
   };
 
-  const handleButtonClick = () => {
-    test(); // Call the test function on button click
+  const handleAddMeal = async () => {
+    const mealData = {
+      name: mealName,
+      type: mealType,
+      ingredients: selectedIngredients.map(item => ({
+        id: item.ingredient.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    try {
+      await mealService.createMeal(mealData);
+      alert('Meal added successfully');
+    } catch (error) {
+      alert('Error adding meal');
+    }
   };
 
   return (
@@ -152,68 +159,67 @@ const AddMeal: React.FC = () => {
             value={mealName}
             onChangeText={setMealName}
           />
-          <TouchableOpacity style={styles.photoButton}>
-            <Text style={{color: '#fff'}}>Photo of meal</Text>
-          </TouchableOpacity>
-          <View style={styles.mealTypeContainer}>
-            <Text style={styles.mealTypeLabel}>Meal Type:</Text>
-            <RadioButton.Group
-              onValueChange={value => setMealType(value)}
-              value={mealType}>
-              <View style={styles.radioGroup}>
-                <RadioButton value="omnivore" />
-                <Text style={styles.radioLabel}>Omnivore</Text>
-              </View>
-              <View style={styles.radioGroup}>
-                <RadioButton value="vegetarian" />
-                <Text style={styles.radioLabel}>Vegetarian</Text>
-              </View>
-              <View style={styles.radioGroup}>
-                <RadioButton value="vegan" />
-                <Text style={styles.radioLabel}>Vegan</Text>
-              </View>
-            </RadioButton.Group>
+          <View style={styles.radioContainer}>
+            <Text style={styles.radioLabel}>Type:</Text>
+            <View style={styles.radioGroup}>
+              <RadioButton
+                value="omnivore"
+                status={mealType === 'omnivore' ? 'checked' : 'unchecked'}
+                onPress={() => setMealType('omnivore')}
+              />
+              <Text style={styles.radioText}>Omnivore</Text>
+              <RadioButton
+                value="vegetarian"
+                status={mealType === 'vegetarian' ? 'checked' : 'unchecked'}
+                onPress={() => setMealType('vegetarian')}
+              />
+              <Text style={styles.radioText}>Vegetarian</Text>
+              <RadioButton
+                value="vegan"
+                status={mealType === 'vegan' ? 'checked' : 'unchecked'}
+                onPress={() => setMealType('vegan')}
+              />
+              <Text style={styles.radioText}>Vegan</Text>
+            </View>
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Meal Content</Text>
           <TouchableOpacity
-            style={styles.addFoodButton}
-            onPress={() => setIsModalVisible(true)}>
-            <Text style={styles.addFoodButtonText}>+ Add food to Meal</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsCollapsed(!isCollapsed)}>
+            style={styles.sectionHeader}
+            onPress={() => setIsCollapsed(!isCollapsed)}>
+            <Text style={styles.sectionTitle}>Ingredients</Text>
             <Text style={styles.collapseButton}>
-              {isCollapsed ? 'Show Ingredients' : 'Hide Ingredients'}
+              {isCollapsed ? '+' : '-'}
             </Text>
           </TouchableOpacity>
           {!isCollapsed && (
-            <FlatList
-              data={selectedIngredients}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => (
+            <View>
+              {selectedIngredients.map(item => (
                 <TouchableOpacity
+                  key={item.ingredient.id}
+                  style={styles.ingredientItem}
                   onPress={() => handleIngredientPress(item.ingredient)}>
-                  <View style={styles.selectedIngredientItem}>
-                    <Text style={styles.ingredientName}>
-                      {item.ingredient.name} ({formatValue(item.quantity * 100)}
-                      g)
-                    </Text>
-                  </View>
+                  <Text style={styles.ingredientName}>{item.ingredient.name}</Text>
+                  <Text style={styles.ingredientQuantity}>
+                    Quantity: {formatValue(item.quantity)}g
+                  </Text>
                 </TouchableOpacity>
-              )}
-            />
+              ))}
+              <Button
+                title="Add Ingredients"
+                onPress={() => setIsModalVisible(true)}
+              />
+            </View>
           )}
         </View>
 
         <Modal visible={isModalVisible} animationType="slide">
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Select Food</Text>
             <FlatList
-              data={mockIngredients}
+              data={ingredients}
               keyExtractor={item => item.id}
-              renderItem={({item}) => (
+              renderItem={({ item }) => (
                 <View
                   style={[
                     styles.ingredientContainer,
@@ -223,117 +229,102 @@ const AddMeal: React.FC = () => {
                     style={styles.ingredientItem}
                     onPress={() => toggleSelectForModal(item.id)}>
                     <Text style={styles.ingredientName}>{item.name}</Text>
-                    <Text style={{color: '#ccc'}}>Brand: {item.brand}</Text>
-                    <Text style={{color: '#ccc'}}>
-                      Category: {item.category}
-                    </Text>
-                    <Text style={{color: '#ccc'}}>
+                    <Text style={{ color: '#ccc' }}>Brand: {item.brand}</Text>
+                    <Text style={{ color: '#ccc' }}>Category: {item.category}</Text>
+                    <Text style={{ color: '#ccc' }}>
                       Calories (per 100g): {item.nutrition.calories}
                     </Text>
-                    <Text style={{color: '#ccc'}}>
+                    <Text style={{ color: '#ccc' }}>
                       Protein (per 100g): {item.nutrition.protein}g
                     </Text>
-                    <Text style={{color: '#ccc'}}>
+                    <Text style={{ color: '#ccc' }}>
                       Carbs (per 100g): {item.nutrition.carbs}g
                     </Text>
-                    <Text style={{color: '#ccc'}}>
+                    <Text style={{ color: '#ccc' }}>
                       Fat (per 100g): {item.nutrition.fat}g
                     </Text>
                   </TouchableOpacity>
-                  <TextInput
+                  {selectedForModal[item.id] && (
+                    <TextInput
                     style={styles.quantityInput}
                     keyboardType="numeric"
-                    value={currentQuantities[item.id]}
-                    onChangeText={value => handleQuantityChange(item.id, value)}
-                    onBlur={() => handleBlur(item.id)}
-                    placeholder="Quantity"
+                    placeholder="Qty"
                     placeholderTextColor="#ccc"
+                    value={currentQuantities[item.id] || ''}
+                    onChangeText={value =>
+                      handleQuantityChange(item.id, value)
+                    }
+                    onBlur={() => handleBlur(item.id)}
                   />
-                </View>
-              )}
-            />
-            <Button
-              title={
-                Object.values(selectedForModal).some(value => value)
-                  ? 'Save'
-                  : 'Close'
-              }
-              onPress={addSelectedIngredientsToMeal}
-            />
-          </View>
-        </Modal>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>
-            Nutritional Information (per serving)
-          </Text>
-          <View style={styles.nutritionInfo}>
-            <Text style={{color: '#fff'}}>
-              Calories: {calculateTotalNutrition('calories', true)} kcal
-            </Text>
-            <Text style={{color: '#fff'}}>
-              Protein: {calculateTotalNutrition('protein')} g
-            </Text>
-            <Text style={{color: '#fff'}}>
-              Net carbs: {calculateTotalNutrition('carbs')} g
-            </Text>
-            <Text style={{color: '#fff'}}>
-              Fat: {calculateTotalNutrition('fat')} g
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
-      <TouchableOpacity
-        style={[
-          styles.addButton,
-          {
-            backgroundColor:
-              mealName && selectedIngredients.length > 0
-                ? '#007bff'
-                : '#cccccc',
-          },
-        ]}
-        disabled={!mealName || selectedIngredients.length === 0}>
-        <Text style={styles.addButtonText}>ADD MEAL</Text>
-      </TouchableOpacity>
-
-      <Modal
-        visible={!!selectedIngredientDetails}
-        animationType="slide"
-        onRequestClose={closeIngredientDetailsModal}>
-        <View style={styles.modalContainer}>
-          {selectedIngredientDetails && (
-            <>
-              <Text style={styles.modalTitle}>
-                {selectedIngredientDetails.name}
-              </Text>
-              <Text style={{color: '#ccc'}}>
-                Brand: {selectedIngredientDetails.brand}
-              </Text>
-              <Text style={{color: '#ccc'}}>
-                Category: {selectedIngredientDetails.category}
-              </Text>
-              <Text style={{color: '#ccc'}}>
-                Calories (per 100g):{' '}
-                {selectedIngredientDetails.nutrition.calories}
-              </Text>
-              <Text style={{color: '#ccc'}}>
-                Protein (per 100g):{' '}
-                {selectedIngredientDetails.nutrition.protein}g
-              </Text>
-              <Text style={{color: '#ccc'}}>
-                Carbs (per 100g): {selectedIngredientDetails.nutrition.carbs}g
-              </Text>
-              <Text style={{color: '#ccc'}}>
-                Fat (per 100g): {selectedIngredientDetails.nutrition.fat}g
-              </Text>
-              <Button title="Close" onPress={closeIngredientDetailsModal} />
-            </>
-          )}
+                )}
+              </View>
+            )}
+          />
+          <Button title="Add to Meal" onPress={addSelectedIngredientsToMeal} />
+          <Button title="Cancel" onPress={() => setIsModalVisible(false)} />
         </View>
       </Modal>
-    </View>
-  );
+
+      {selectedIngredientDetails && (
+        <Modal visible={true} animationType="slide">
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>
+              {selectedIngredientDetails.name}
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Brand: {selectedIngredientDetails.brand}
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Category: {selectedIngredientDetails.category}
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Calories (per 100g): {selectedIngredientDetails.nutrition.calories}
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Protein (per 100g): {selectedIngredientDetails.nutrition.protein}g
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Carbs (per 100g): {selectedIngredientDetails.nutrition.carbs}g
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Fat (per 100g): {selectedIngredientDetails.nutrition.fat}g
+            </Text>
+            <Button title="Close" onPress={closeIngredientDetailsModal} />
+          </View>
+        </Modal>
+      )}
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Nutritional Values</Text>
+        <View style={styles.nutritionItem}>
+          <Text style={styles.nutritionLabel}>Calories:</Text>
+          <Text style={styles.nutritionValue}>
+            {calculateTotalNutrition('calories', true)} kcal
+          </Text>
+        </View>
+        <View style={styles.nutritionItem}>
+          <Text style={styles.nutritionLabel}>Protein:</Text>
+          <Text style={styles.nutritionValue}>
+            {calculateTotalNutrition('protein')} g
+          </Text>
+        </View>
+        <View style={styles.nutritionItem}>
+          <Text style={styles.nutritionLabel}>Carbs:</Text>
+          <Text style={styles.nutritionValue}>
+            {calculateTotalNutrition('carbs')} g
+          </Text>
+        </View>
+        <View style={styles.nutritionItem}>
+          <Text style={styles.nutritionLabel}>Fat:</Text>
+          <Text style={styles.nutritionValue}>
+            {calculateTotalNutrition('fat')} g
+          </Text>
+        </View>
+      </View>
+      <Button title="Add Meal" onPress={handleAddMeal} />
+    </ScrollView>
+  </View>
+);
 };
 
 export default AddMeal;

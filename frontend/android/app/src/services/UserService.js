@@ -20,6 +20,10 @@ class UserService {
     }
   }
 
+  getToken(){
+    return this.token;
+  }
+
   async handleRequest(request) {
     try {
       const response = await request;
