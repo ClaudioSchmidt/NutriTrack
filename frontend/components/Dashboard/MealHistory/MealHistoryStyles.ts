@@ -1,26 +1,33 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  mealHistoryContainer: {
-    flex: 1,
-    width: '100%',
-    paddingHorizontal: 20,
-    marginTop: 10,
+  mealContainer: {
+    borderWidth: 3,
+    borderColor: 'black',
+    padding: 10,
+    marginBottom: 3,
+    backgroundColor: 'lightgrey',
   },
-  historyHeader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  mealItem: {
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  mealText: {
+  mealTitle: {
+    color: '#4CAF50',
     fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  button: {
+    width: '20%',
+    borderRadius: 100,
+    color: 'orange',
+    backgroundColor: 'lightgrey',
+    borderColor: 'black',
+    borderWidth: 5,
+  },
+  buttonText: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: '#4CAF50',
+    fontWeight: 'bold',
+    fontSize: 50,
   },
 });
 

@@ -49,8 +49,9 @@ const Dashboard: React.FC = () => {
       <View>
         <Score />
       </View>
-
-      {/* <MealHistory /> */}
+      <View style={{flex: 1}}>
+        <MealHistory />
+      </View>
     </View>
   );
 };
