@@ -15,6 +15,7 @@
     - [Tracking API](#tracking-api)
     - [User Stats API](#user-stats-api)
 8. [Contribution](#contribution)
+9. [Licenses](#licenses)
 
 ---
 
@@ -538,3 +539,53 @@ Below is the database schema for NutriTrack, providing a visual overview of how 
 
 - **Reporting Bugs:** If you find a bug, please open an issue with a detailed description of the problem and steps to reproduce it.
 - **Feature Requests:** If you have a feature request, open an issue with a detailed description of the proposed feature and why it would be beneficial.
+
+## Licenses
+
+NutriTrack uses several open-source components. Below is a list of these components and their respective licenses:
+
+### Spring Boot Starter Web
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### Spring Boot Starter Test
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### Spring Boot Devtools
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### Spring Boot Maven Plugin
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### PostgreSQL
+- **Image**: `postgres:16.2`
+- **License**: PostgreSQL License
+- **Link**: [PostgreSQL License](https://www.postgresql.org/about/licence/)
+
+### pgAdmin
+- **Image**: `dpage/pgadmin4`
+- **License**: PostgreSQL License
+- **Link**: [pgAdmin License](https://www.pgadmin.org/licence/)
+
+### Maven
+- **Image**: `maven:3.8.3-openjdk-17-slim`
+- **License**: Apache License 2.0 for Maven, GPL with Classpath Exception for OpenJDK
+- **Link (Maven)**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+- **Link (OpenJDK)**: [GPL with Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html)
+
+## Proprietary License
+
+This software is proprietary and all rights are reserved by the author.
+
+### Terms
+
+1. The Software may not be used for any commercial purpose without the explicit written permission of the copyright holder.
+2. The Software may not be modified, merged, published, distributed, sublicensed, or sold without the explicit written permission of the copyright holder.
+3. Redistributions of the Software in source or binary forms must retain the above copyright notice, this list of conditions, and the following disclaimer.
+
+### Disclaimer
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
