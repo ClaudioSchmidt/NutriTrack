@@ -14,6 +14,7 @@
     - [Food API](#food-api)
     - [Tracking API](#tracking-api)
     - [User Stats API](#user-stats-api)
+8. [Contribution](#contribution)
 
 ---
 
@@ -485,3 +486,55 @@ Below is the database schema for NutriTrack, providing a visual overview of how 
         "totalPoints": 0
     }
 ```
+
+## Contribution
+
+### How to Contribute
+
+1. Open an Issue
+   
+   - Start by opening an issue on the repository to describe the bug you've found or the feature you'd like to add. Be as detailed as possible.
+   - Once the issue is created, use the GitHub interface to create a new branch directly from the issue page. This ensures that your branch is linked to the issue. Make sure to base your new branch on the `develop` branch.
+     
+3. Develop and Test
+   
+   - Clone your forked repository to your local machine.
+     
+   ```sh
+   git clone https://github.com/your-username/nutritrack.git
+   cd nutritrack
+   ```
+   
+   - Checkout the branch created from the issue.
+     
+   ```sh
+   git checkout -b issue-number-branch-name
+   ```
+   
+   - Implement your changes and thoroughly test them.
+     
+4. Commit Changes
+   
+   - Commit your changes with a meaningful commit message, referencing the issue number.
+     
+   ```sh
+   git commit -m "Fixes #issue-number: Description of the feature or fix"
+   ```
+
+6. Push to your Fork
+   
+   - Push your branch to your forked repository.
+     
+   ```sh
+   git push origin issue-number-branch-name
+   ```
+
+8. Open a Pull Request
+   
+   - Open a pull request from your branch to the `develop` branch of the original repository. In the PR description, include a reference to the issue using keywords like "Fixes|Resolves|Closes #issue-number". This will automatically link the PR to the issue and close the issue when the PR is merged.
+   - Provide a detailed description of your changes and any additional context or information that might be helpful for the review.
+     
+### Issues
+
+- **Reporting Bugs:** If you find a bug, please open an issue with a detailed description of the problem and steps to reproduce it.
+- **Feature Requests:** If you have a feature request, open an issue with a detailed description of the proposed feature and why it would be beneficial.
