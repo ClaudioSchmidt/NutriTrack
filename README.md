@@ -576,6 +576,15 @@ NutriTrack uses several open-source components. Below is a list of these compone
 - **Link (Maven)**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 - **Link (OpenJDK)**: [GPL with Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html)
 
+## Authors and Contributors
+
+- **Author**: 
+  - Claudio Schmidt (Clausioporosis)
+
+### Contributors
+
+A full list of contributors can be found on [GitHub Insights](https://github.com/<dein-benutzername>/<dein-repository>/graphs/contributors).
+
 ## Proprietary License
 
 This software is proprietary and all rights are reserved by the author.
