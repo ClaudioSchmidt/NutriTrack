@@ -578,12 +578,11 @@ NutriTrack uses several open-source components. Below is a list of these compone
 
 ## Authors and Contributors
 
-- **Author**: 
-  - Claudio Schmidt (Clausioporosis)
+- **Author**: Claudio Schmidt [Clausioporosis](https://github.com/Clausioporosis)
 
 ### Contributors
 
-A full list of contributors can be found on [GitHub Insights](https://github.com/<dein-benutzername>/<dein-repository>/graphs/contributors).
+A full list of contributors can be found on [GitHub Insights](https://github.com/Clausioporosis/NutriTrack/graphs/contributors).
 
 ## Proprietary License
 
