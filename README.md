@@ -14,6 +14,8 @@
     - [Food API](#food-api)
     - [Tracking API](#tracking-api)
     - [User Stats API](#user-stats-api)
+8. [Contribution](#contribution)
+9. [Licenses](#licenses)
 
 ---
 
@@ -485,3 +487,113 @@ Below is the database schema for NutriTrack, providing a visual overview of how 
         "totalPoints": 0
     }
 ```
+
+## Contribution
+
+### How to Contribute
+
+1. Open an Issue
+   
+   - Start by opening an issue on the repository to describe the bug you've found or the feature you'd like to add. Be as detailed as possible.
+   - Once the issue is created, use the GitHub interface to create a new branch directly from the issue page. This ensures that your branch is linked to the issue. Make sure to base your new branch on the `develop` branch.
+     
+3. Develop and Test
+   
+   - Clone your forked repository to your local machine.
+     
+   ```sh
+   git clone https://github.com/your-username/nutritrack.git
+   cd nutritrack
+   ```
+   
+   - Checkout the branch created from the issue.
+     
+   ```sh
+   git checkout -b issue-number-branch-name
+   ```
+   
+   - Implement your changes and thoroughly test them.
+     
+4. Commit Changes
+   
+   - Commit your changes with a meaningful commit message, referencing the issue number.
+     
+   ```sh
+   git commit -m "Fixes #issue-number: Description of the feature or fix"
+   ```
+
+6. Push to your Fork
+   
+   - Push your branch to your forked repository.
+     
+   ```sh
+   git push origin issue-number-branch-name
+   ```
+
+8. Open a Pull Request
+   
+   - Open a pull request from your branch to the `develop` branch of the original repository. In the PR description, include a reference to the issue using keywords like "Fixes|Resolves|Closes #issue-number". This will automatically link the PR to the issue and close the issue when the PR is merged.
+   - Provide a detailed description of your changes and any additional context or information that might be helpful for the review.
+     
+### Issues
+
+- **Reporting Bugs:** If you find a bug, please open an issue with a detailed description of the problem and steps to reproduce it.
+- **Feature Requests:** If you have a feature request, open an issue with a detailed description of the proposed feature and why it would be beneficial.
+
+## Licenses
+
+NutriTrack uses several open-source components. Below is a list of these components and their respective licenses:
+
+### Spring Boot Starter Web
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### Spring Boot Starter Test
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### Spring Boot Devtools
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### Spring Boot Maven Plugin
+- **License**: Apache License 2.0
+- **Link**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+
+### PostgreSQL
+- **Image**: `postgres:16.2`
+- **License**: PostgreSQL License
+- **Link**: [PostgreSQL License](https://www.postgresql.org/about/licence/)
+
+### pgAdmin
+- **Image**: `dpage/pgadmin4`
+- **License**: PostgreSQL License
+- **Link**: [pgAdmin License](https://www.pgadmin.org/licence/)
+
+### Maven
+- **Image**: `maven:3.8.3-openjdk-17-slim`
+- **License**: Apache License 2.0 for Maven, GPL with Classpath Exception for OpenJDK
+- **Link (Maven)**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+- **Link (OpenJDK)**: [GPL with Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html)
+
+## Authors and Contributors
+
+**Author**: Claudio Schmidt [Clausioporosis](https://github.com/Clausioporosis)
+
+### Contributors
+
+A full list of contributors can be found on [GitHub Insights](https://github.com/Clausioporosis/NutriTrack/graphs/contributors).
+
+## Proprietary License
+
+This software is proprietary and all rights are reserved by the author.
+
+### Terms
+
+1. The Software may not be used for any commercial purpose without the explicit written permission of the copyright holder.
+2. The Software may not be modified, merged, published, distributed, sublicensed, or sold without the explicit written permission of the copyright holder.
+3. Redistributions of the Software in source or binary forms must retain the above copyright notice, this list of conditions, and the following disclaimer.
+
+### Disclaimer
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
